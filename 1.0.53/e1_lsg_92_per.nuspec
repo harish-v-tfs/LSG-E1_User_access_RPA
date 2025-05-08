@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>E1_LSG_92_Per</id>
+    <version>1.0.53</version>
+    <title>E1_LSG_92_Per</title>
+    <authors>harish.v</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>E1 LSG 92 Access provisioning tasks</description>
+    <tags>VisualBasic VB UiPathStudioProcess</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
+        <dependency id="Datatable.Activities.UiPath" version="[1.0.1]" />
+        <dependency id="UiPath.Credentials.Activities" version="[1.1.6479.13204]" />
+        <dependency id="UiPath.Database.Activities" version="[1.4.0]" />
+        <dependency id="UiPath.Excel.Activities" version="[2.11.4]" />
+        <dependency id="UiPath.Mail.Activities" version="[1.12.3]" />
+        <dependency id="UiPath.System.Activities" version="[21.10.4]" />
+        <dependency id="UiPath.UIAutomation.Activities" version="[21.10.5]" />
+        <dependency id="UiPathTeam.ServiceNow.Activities" version="[1.0.0.308]" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,406 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="updateServiceNow" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:us="clr-namespace:UiPathTeam.ServiceNow;assembly=UiPathTeam.ServiceNow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property Name="outTaskState" Type="InArgument(x:String)" />
+    <x:Property Name="outScheduledDate" Type="InArgument(x:String)" />
+    <x:Property Name="outTaskAssignmentGroup" Type="InArgument(x:String)" />
+    <x:Property Name="outTaskFollowUp" Type="InArgument(x:String)" />
+    <x:Property Name="outAssignedTo" Type="InArgument(x:String)" />
+    <x:Property Name="outTaskAlt" Type="InArgument(x:String)" />
+    <x:Property Name="outworkNotes" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1566,1254</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>updateServiceNow_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="48">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Globalization</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart DisplayName="updateServiceNow" sap:VirtualizedContainerService.HintSize="1041,1189" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:String" Name="username" />
+      <Variable x:TypeArguments="ss:SecureString" Name="password" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,107.5 420,107.5 420,197</av:PointCollection>
+        <x:Double x:Key="Height">1152</x:Double>
+        <x:Double x:Key="Width">1007</x:Double>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <x:Reference>__ReferenceID0</x:Reference>
+    </Flowchart.StartNode>
+    <FlowStep x:Name="__ReferenceID0">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">320,197</av:Point>
+          <av:Size x:Key="ShapeSize">200,81</av:Size>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Sequence sap:VirtualizedContainerService.HintSize="1149,3324" sap2010:WorkflowViewState.IdRef="Sequence_13">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Service_now" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="1087,80" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[password]" Username="[username]" />
+        <Assign sap:VirtualizedContainerService.HintSize="1087,82" sap2010:WorkflowViewState.IdRef="Assign_36">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[outTaskState]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(outTaskState)]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <Assign sap:VirtualizedContainerService.HintSize="1087,82" sap2010:WorkflowViewState.IdRef="Assign_37">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[outTaskState]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[outTaskState.Trim]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <us:ServiceNow_Application_Scope ConsumerKey="{x:Null}" ConsumerKeyProd="{x:Null}" ConsumerSecret="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" Password="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyPassProduction="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" ResponseService="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" UserName="{x:Null}" ValidConnection="{x:Null}" Connection_Status="Close_at_scope_end" DisplayName="ServiceNow Application Scope" EndPoint="[in_Config(&quot;Service_now_URL&quot;).ToString]" EnvironmentType="Production" sap:VirtualizedContainerService.HintSize="1087,2849" sap2010:WorkflowViewState.IdRef="ServiceNow_Application_Scope_1" InvalidCommand="No" PasswordProd="[password]" UserNameProd="awsu1.svc.rpbot0020p">
+          <us:ServiceNow_Application_Scope.Body>
+            <ActivityAction x:TypeArguments="us:ServiceNowProperty">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="us:ServiceNowProperty" Name="ServiceNowScope" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1053,2738" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:Boolean" Name="bool" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[outTaskState=&quot;Pending&quot;]" sap:VirtualizedContainerService.HintSize="991,877" sap2010:WorkflowViewState.IdRef="If_1">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="496,717" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_38">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_39">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[in_Config("botQueue").ToString]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Update_Task_1" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Number&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">state</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">-5</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">assigned_to</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">aws Bot_user</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Update_Task_6" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Parent&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">state</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">-5</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Update_Task_7" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Number&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">assigned_to</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outAssignedTo]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">assignment_group</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,62" sap2010:WorkflowViewState.IdRef="WriteLine_1" Text="[bool.ToString]" />
+                    </Sequence>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="450,273" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="388,60" sap2010:WorkflowViewState.IdRef="Update_Task_2" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Number&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">assigned_to</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outAssignedTo]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">assignment_group</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">state</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outTaskState]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="388,62" sap2010:WorkflowViewState.IdRef="WriteLine_2" Text="[bool.ToString]" />
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <If Condition="[outworkNotes&lt;&gt;&quot;&quot;]" sap:VirtualizedContainerService.HintSize="991,462" sap2010:WorkflowViewState.IdRef="If_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="450,273" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="388,60" sap2010:WorkflowViewState.IdRef="Update_Task_3" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Number&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">work_notes</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outworkNotes]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="388,62" sap2010:WorkflowViewState.IdRef="WriteLine_3" Text="[bool.ToString]" />
+                    </Sequence>
+                  </If.Then>
+                </If>
+                <If Condition="[outScheduledDate&lt;&gt;&quot;&quot;]" sap:VirtualizedContainerService.HintSize="991,706" sap2010:WorkflowViewState.IdRef="If_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="496,517" sap2010:WorkflowViewState.IdRef="Sequence_40">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_40">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_41">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[in_Config("assignmentgroup").ToString]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Update_Task_4" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Number&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">expected_start</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outScheduledDate]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">assignment_group</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outTaskAssignmentGroup]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="434,62" sap2010:WorkflowViewState.IdRef="WriteLine_4" Text="[bool.ToString]" />
+                    </Sequence>
+                  </If.Then>
+                </If>
+                <If Condition="[outTaskAlt&lt;&gt;&quot;&quot;]" sap:VirtualizedContainerService.HintSize="991,462" sap2010:WorkflowViewState.IdRef="If_4">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="450,273" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <us:Update_Task Response="{x:Null}" Result="{x:Null}" Sys_id="{x:Null}" DisplayName="Update Task" sap:VirtualizedContainerService.HintSize="388,60" sap2010:WorkflowViewState.IdRef="Update_Task_5" InvalidCommand="Yes" Number="[in_TransactionItem.SpecificContent(&quot;Number&quot;).ToString]" ValidConnection="[bool]" cmdTYPE="UpdateTask">
+                        <us:Update_Task.Parameters>
+                          <scg:List x:TypeArguments="us:ParametersArgument" Capacity="4">
+                            <us:ParametersArgument>
+                              <us:ParametersArgument.Parameter>
+                                <InArgument x:TypeArguments="x:String">correlation_id</InArgument>
+                              </us:ParametersArgument.Parameter>
+                              <us:ParametersArgument.ValueData>
+                                <InArgument x:TypeArguments="x:String">[outTaskAlt]</InArgument>
+                              </us:ParametersArgument.ValueData>
+                            </us:ParametersArgument>
+                          </scg:List>
+                        </us:Update_Task.Parameters>
+                      </us:Update_Task>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="388,62" sap2010:WorkflowViewState.IdRef="WriteLine_5" Text="[bool.ToString]" />
+                    </Sequence>
+                  </If.Then>
+                </If>
+              </Sequence>
+            </ActivityAction>
+          </us:ServiceNow_Application_Scope.Body>
+        </us:ServiceNow_Application_Scope>
+      </Sequence>
+    </FlowStep>
+  </Flowchart>
+</Activity>
